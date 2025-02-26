@@ -1,9 +1,9 @@
 "use client";
-import Image from "./components/Image";
-import Input from "./components/common/Input";
-import Navbar from "./components/Navbar";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
+import Image from "../Image";
+import Navbar from "../Navbar";
+import Input from "../common/Input";
 
 
 export default function Page() {
@@ -55,20 +55,21 @@ export default function Page() {
 
       <form className="flex justify-center items-center w-full gap-5 flex-col p-5" onSubmit={handleSubmit}>
 
-        {/* Input for name */}
-
-        <Input type="text" name={"Name"} placeholder="Enter name" onChange={handleInputChange} />
-
-        {/* Input for email */}
-        <Input type="email" name={"Email"} placeholder="Enter email" onChange={handleInputChange} />
-
-        <div className="flex justify-between items-center gap-10 p-4">
+        <div className="flex justify-between items-center gap-5 pt-4">
           {/* Input for checkbox */}
-          <Input type="checkbox" name={"checked"} placeholder="I agree the terms & conditions"  onChange={handleInputChange} />
+          
+        <Input type="text"  placeholder="0" onChange={handleInputChange} className="w-8 text-center" />
+        <Input type="text"  placeholder="0" onChange={handleInputChange} className="w-8 text-center" />
+        <Input type="text"  placeholder="0" onChange={handleInputChange} className="w-8 text-center" />
+        <Input type="text"  placeholder="0" onChange={handleInputChange} className="w-8 text-center" />
+         
           <button  type="submit" className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600" >
             Submit
           </button>
         </div>
+        <p className="text-center text-xs">
+          If you don't received code within 2 minutes, resend code
+        </p>
       </form>
         {
           text && <>

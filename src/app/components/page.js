@@ -1,9 +1,9 @@
 "use client";
-import Image from "./components/Image";
-import Input from "./components/common/Input";
-import Navbar from "./components/Navbar";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
+import Navbar from "./Navbar";
+import Image from "./Image";
+import Input from "./common/Input";
 
 
 export default function Page() {
