@@ -6,7 +6,7 @@ import Input from "../common/Input";
 import { API_ROUTES } from "@/lib/api.route";
 import { axiosInstance } from "@/services/api";
 
-const page = () => {
+const Page = () => {
   const [formData, setFormData] = useState({
     prompt: "",
   });
@@ -104,4 +104,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

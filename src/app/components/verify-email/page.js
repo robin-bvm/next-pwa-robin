@@ -85,7 +85,7 @@ export default function Page() {
           Submit
         </button>
         <p className="text-xs text-center">
-          If you don't receive the code within 2 minutes, resend code.
+          If you don&apos;t receive the code within 2 minutes, resend code.
         </p>
       </form>
       {message && (
