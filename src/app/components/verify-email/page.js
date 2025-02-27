@@ -1,83 +1,102 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
-import Image from "../Image";
+import { useRouter } from "next/navigation";
+import ImageComponent from "../ImageComponent";
 import Navbar from "../Navbar";
 import Input from "../common/Input";
-
+import { axiosInstance } from "@/services/api";
+import { API_ROUTES } from "@/lib/api.route";
 
 export default function Page() {
-
   const router = useRouter();
-
-  const [formData, setFormData] = useState({
-    Name : "",
-    Email : "",
-    checked : false
-  });
-  const [text,setText] = useState("");
+  const [otp, setOtp] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   /**
-   * Handle input change event
-   * @param {event} e 
+   * Handle OTP input change
    */
-  const handleInputChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value });
+  const handleInputChange = (e, index) => {
+    const value = e.target.value.slice(-1); // Ensure single digit
+    setOtp((prev) => {
+      const otpArray = prev.split("");
+      otpArray[index] = value;
+      return otpArray.join("");
+    });
   };
 
   /**
-   * Handle form submission event
-   * @param {event} e 
+   * Handle form submission
    */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (otp.length < 4) {
+      setMessage("Please fill OTP");
+      setMessageType("error");
+      return;
+    }
 
-    console.log(formData);
+    try {
+      const response = await axiosInstance.post(API_ROUTES.verify, {
+        code: otp,
+      });
 
-   setText("Redirection to verify email page.....");
-
-    setTimeout(() => {
-       router.push('/verify-email');
-    }, 3000);
-
+      if (response.status === 200) {
+        setMessage("Redirecting to chat page...");
+        setMessageType("success");
+        setTimeout(() => router.push("/components/chat-page"), 3000);
+      } else {
+        setMessage("Invalid OTP");
+        setMessageType("error");
+      }
+    } catch (error) {
+      setMessage("Something went wrong. Try again.");
+      setMessageType("error");
+      console.error("Error:", error);
+    }
   };
-
 
   return (
     <>
       <Navbar />
-
-      <h1 className="text-center m-8">
-        Chat with John
-      </h1>
-
-      <Image />
-
-      <form className="flex justify-center items-center w-full gap-5 flex-col p-5" onSubmit={handleSubmit}>
-
-        <div className="flex justify-between items-center gap-5 pt-4">
-          {/* Input for checkbox */}
-          
-        <Input type="text"  placeholder="0" onChange={handleInputChange} className="w-8 text-center" />
-        <Input type="text"  placeholder="0" onChange={handleInputChange} className="w-8 text-center" />
-        <Input type="text"  placeholder="0" onChange={handleInputChange} className="w-8 text-center" />
-        <Input type="text"  placeholder="0" onChange={handleInputChange} className="w-8 text-center" />
-         
-          <button  type="submit" className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600" >
-            Submit
-          </button>
+      <h1 className="text-center m-8">Chat with John</h1>
+      <ImageComponent />
+      <form
+        className="flex flex-col items-center gap-5 p-5"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex gap-3">
+          {[...Array(4)].map((_, index) => (
+            <Input
+              key={index}
+              type="number"
+              placeholder="0"
+              onChange={(e) => handleInputChange(e, index)}
+              className="w-10 text-center border rounded-md"
+              min={0}
+              max={9}
+            />
+          ))}
         </div>
-        <p className="text-center text-xs">
-          If you don't received code within 2 minutes, resend code
+        <button
+          type="submit"
+          className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+        >
+          Submit
+        </button>
+        <p className="text-xs text-center">
+          If you don't receive the code within 2 minutes, resend code.
         </p>
       </form>
-        {
-          text && <>
-          <p className="text-center text-black-300 underline">
-            {text}
-          </p>
-          </> 
-        }
+      {message && (
+        <p
+          className={`text-center ${
+            messageType === "error" ? "text-red-400" : "text-black-300"
+          } underline`}
+        >
+          {message}
+        </p>
+      )}
     </>
   );
 }
