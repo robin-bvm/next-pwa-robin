@@ -4,7 +4,7 @@ import Input from "./components/common/Input";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { axiosInstance } from "../services/api";
+import { axiosInstance } from "../services/axios";
 import { API_ROUTES } from "../lib/api.route";
 
 export default function Page() {
@@ -78,7 +78,12 @@ export default function Page() {
           onChange={handleInputChange}
         />
         <div className="flex gap-5 justify-between items-center">
-          <Input type="checkbox" name="agreed" onChange={handleInputChange} placeholder={"I agree to the terms & conditions"} />
+          <Input
+            type="checkbox"
+            name="agreed"
+            onChange={handleInputChange}
+            placeholder={"I agree to the terms & conditions"}
+          />
           <button
             type="submit"
             className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"

@@ -4,7 +4,7 @@ import Navbar from "../Navbar";
 import ImageComponent from "../ImageComponent";
 import Input from "../common/Input";
 import { API_ROUTES } from "@/lib/api.route";
-import { axiosInstance } from "@/services/api";
+import { axiosInstance } from "@/services/axios";
 
 const Page = () => {
   const [formData, setFormData] = useState({

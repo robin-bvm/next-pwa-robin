@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import ImageComponent from "../ImageComponent";
 import Navbar from "../Navbar";
 import Input from "../common/Input";
-import { axiosInstance } from "@/services/api";
+import { axiosInstance } from "@/services/axios";
 import { API_ROUTES } from "@/lib/api.route";
 
 export default function Page() {
@@ -75,6 +75,10 @@ export default function Page() {
               className="w-10 text-center border rounded-md"
               min={0}
               max={9}
+              onInput={(e) => {
+                if (e.target.value <= 0) e.target.value = 0; // Enforce min value
+                if (e.target.value >= 9) e.target.value = 9; // Enforce max value
+              }}
             />
           ))}
         </div>
