@@ -4,11 +4,6 @@ export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-console.log(
-  "🚀 ~ axios.js:7 ~ process.env.NEXT_PUBLIC_API_URL:",
-  process.env.NEXT_PUBLIC_API_URL
-);
-
 // Add a request interceptor to modify the request body
 axiosInstance.interceptors.request.use(
   (config) => {

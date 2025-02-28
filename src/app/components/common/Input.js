@@ -7,15 +7,14 @@ const Input = ({
   placeholder,
   onChange,
   className,
+  label,
   ...options
 }) => {
   return (
     <div className="flex justify-center items-center gap-4">
-      {type != "checkbox" &&
-        (type != "number" && (
-          <label htmlFor={name}>{name && `${name} :`}</label>
-        ))}
-
+      {type != "checkbox" && type != "number" && (
+        <label htmlFor={label}>{label && `${label} :`}</label>
+      )}
       <input
         type={type}
         name={name}

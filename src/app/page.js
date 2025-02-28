@@ -70,12 +70,14 @@ export default function Page() {
           name="name"
           placeholder="Enter name"
           onChange={handleInputChange}
+          label={"name"}
         />
         <Input
           type="email"
           name="email"
           placeholder="Enter email"
           onChange={handleInputChange}
+          label={"email"}
         />
         <div className="flex gap-5 justify-between items-center">
           <Input
