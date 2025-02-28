@@ -81,7 +81,7 @@ const Page = () => {
       ) : null}
 
       <form
-        className="bottom-0 sticky bg-white border-gray-300 flex justify-center items-center w-full flex-col md:flex-col sm:flex-col"
+        className="bottom-0 fixed bg-white border-gray-300 flex justify-center items-center w-full flex-col md:flex-row sm:flex-col"
         onSubmit={handleSubmit}
       >
         <Input
